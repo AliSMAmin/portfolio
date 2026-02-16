@@ -1,0 +1,118 @@
+{
+  "identifiers": {
+    "reddit": {
+      "username": "aibnsamin1"
+    },
+    "youtube": {
+      "handle": "@Alishukriamin",
+      "channelId": ""
+    },
+    "instagram": {
+      "handle": "@alishukriamin"
+    }
+  },
+  "categories": [
+    "tech",
+    "philosophy",
+    "literature",
+    "humanities",
+    "fashion",
+    "dining",
+    "maqha",
+    "film",
+    "martial_arts",
+    "motorcycling",
+    "islam"
+  ],
+  "aws": {
+    "accountId": "YOUR_AWS_ACCOUNT_ID",
+    "region": "us-east-1",
+    "domain": "aliamin.info",
+    "hostedZoneId": "YOUR_ROUTE53_ZONE_ID"
+  },
+  "secrets": {
+    "reddit": {
+      "clientId": "REDDIT_CLIENT_ID",
+      "clientSecret": "REDDIT_CLIENT_SECRET",
+      "refreshToken": "REDDIT_REFRESH_TOKEN"
+    },
+    "youtube": {
+      "apiKey": "YOUTUBE_API_KEY"
+    },
+    "instagram": {
+      "mode": "rss_proxy",
+      "rssProxyUrl": "https://rss.app/feeds/YOUR_IG_FEED.xml"
+    }
+  },
+  "sources": {
+    "rss": []
+  },
+  "tagging": {
+    "mode": "rules_only",
+    "rules": {
+      "tech": {
+        "keywords": ["AI", "software", "programming", "technology", "coding", "legal tech", "automation"],
+        "phrases": ["artificial intelligence", "machine learning", "data science"],
+        "sourceHints": []
+      },
+      "philosophy": {
+        "keywords": ["philosophy", "metaphysics", "ethics", "epistemology", "ontology", "phenomenology"],
+        "phrases": ["philosophical", "philosophical inquiry"],
+        "sourceHints": []
+      },
+      "islam": {
+        "keywords": ["Islam", "Islamic", "theology", "tawhid", "fiqh", "hadith", "Quran", "Muslim"],
+        "phrases": ["Islamic theology", "Islamic philosophy"],
+        "sourceHints": []
+      },
+      "literature": {
+        "keywords": ["book", "novel", "literature", "reading", "poetry", "fiction"],
+        "phrases": ["literary criticism", "book review"],
+        "sourceHints": []
+      },
+      "humanities": {
+        "keywords": ["humanities", "culture", "history", "art", "society"],
+        "phrases": ["cultural studies", "social theory"],
+        "sourceHints": []
+      },
+      "fashion": {
+        "keywords": ["fashion", "style", "clothing", "outfit", "designer"],
+        "phrases": ["fashion week", "street style"],
+        "sourceHints": []
+      },
+      "dining": {
+        "keywords": ["food", "restaurant", "dining", "cuisine", "chef", "recipe"],
+        "phrases": ["fine dining", "culinary"],
+        "sourceHints": []
+      },
+      "maqha": {
+        "keywords": ["tea", "coffee", "cafe", "maqha", "espresso", "brew"],
+        "phrases": ["specialty coffee", "tea ceremony"],
+        "sourceHints": []
+      },
+      "film": {
+        "keywords": ["film", "movie", "cinema", "director", "screenplay"],
+        "phrases": ["film review", "cinematography"],
+        "sourceHints": []
+      },
+      "martial_arts": {
+        "keywords": ["martial arts", "MMA", "boxing", "jiu-jitsu", "muay thai", "karate"],
+        "phrases": ["mixed martial arts", "combat sports"],
+        "sourceHints": []
+      },
+      "motorcycling": {
+        "keywords": ["motorcycle", "bike", "riding", "motorbike", "cruiser"],
+        "phrases": ["motorcycle touring", "bike culture"],
+        "sourceHints": []
+      }
+    }
+  },
+  "limits": {
+    "perSourceMaxItems": 100,
+    "pollIntervals": {
+      "reddit": 900,
+      "youtube": 900,
+      "instagram": 1800
+    }
+  }
+}
