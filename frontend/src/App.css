@@ -9,6 +9,21 @@ body {
   margin: 0;
 }
 
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.login-card {
+  width: min(460px, 100%);
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.12);
+}
+
 .page {
   max-width: 1100px;
   margin: 0 auto;
@@ -23,19 +38,57 @@ body {
   margin-bottom: 1rem;
 }
 
+.hero-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logout-button {
+  background: #f8fafc;
+  color: #111827;
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  border: none;
+}
+
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.8rem;
   opacity: 0.85;
+  margin: 0;
 }
 
 .resource-grid,
-.source-grid {
+.source-grid,
+.image-gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 0.9rem;
   margin-bottom: 1rem;
+}
+
+.gallery-section {
+  background: #fff;
+  border-radius: 0.9rem;
+  padding: 1rem;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+  margin-bottom: 1rem;
+}
+
+.gallery-card {
+  background: #f8fafc;
+  border-radius: 0.9rem;
+  padding: 0.65rem;
+}
+
+.gallery-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 0.6rem;
 }
 
 .resource-card,
@@ -120,22 +173,39 @@ body {
   margin-top: 1rem;
 }
 
-.manual-form {
+.manual-form,
+.admin-resource-list {
   display: grid;
   gap: 0.5rem;
 }
 
+.resource-editor-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.error-text {
+  color: #b91c1c;
+  margin: 0;
+}
+
 input,
 textarea,
-button {
+button,
+select {
   font: inherit;
 }
 
 input,
-textarea {
+textarea,
+select {
   border: 1px solid #d1d5db;
   border-radius: 0.55rem;
   padding: 0.55rem 0.65rem;
+  background: #fff;
 }
 
 button {
