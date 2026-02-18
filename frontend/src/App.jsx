@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react'
 import './App.css'
 
-const ADMIN_USERNAME = 'aibnsamin@gmail.com'
-const ADMIN_PASSWORD = 'Margbarhegel@26'
+const ADMIN_USERNAME = 'ali+2@juristai.org'
+const ADMIN_PASSWORD = 'AtticusDev1234@'
 
 const CATEGORY_ORDER = [
   'all',
