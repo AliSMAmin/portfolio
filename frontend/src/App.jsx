@@ -173,6 +173,9 @@ function App() {
   const [galleryImageUrl, setGalleryImageUrl] = useState('')
   const [galleryType, setGalleryType] = useState('ijazah')
 
+  const normalizedPath = window.location.pathname.replace(/\/+$/, '') || '/'
+  const isAdminRoute = normalizedPath === '/admin'
+
   const filteredItems = useMemo(() => {
     return [...items]
       .filter((item) => activeSource === 'all' || item.source === activeSource)
@@ -279,7 +282,7 @@ function App() {
     setLoginPassword('')
   }
 
-  if (!isAdminAuthenticated) {
+  if (isAdminRoute && !isAdminAuthenticated) {
     return (
       <main className="login-page">
         <section className="login-card">
@@ -314,9 +317,15 @@ function App() {
       <header className="hero">
         <div className="hero-top-row">
           <p className="eyebrow">AliHub — single pane of glass</p>
-          <button type="button" className="logout-button" onClick={handleLogout}>
-            Log out
-          </button>
+          {isAdminRoute ? (
+            <button type="button" className="logout-button" onClick={handleLogout}>
+              Log out
+            </button>
+          ) : (
+            <a className="logout-button" href="/admin">
+              Admin
+            </a>
+          )}
         </div>
         <h1>Ali&apos;s Unified Portfolio Feed</h1>
         <p>
@@ -429,93 +438,97 @@ function App() {
         ))}
       </section>
 
-      <section className="manual-panel">
-        <h3>Manual curation</h3>
-        <p>Add your own updates so you always stay in control of the narrative.</p>
-        <form onSubmit={handleManualSubmit} className="manual-form">
-          <input
-            value={manualTitle}
-            onChange={(event) => setManualTitle(event.target.value)}
-            placeholder="Update title"
-          />
-          <textarea
-            value={manualSummary}
-            onChange={(event) => setManualSummary(event.target.value)}
-            placeholder="Short summary"
-            rows={3}
-          />
-          <input
-            value={manualTags}
-            onChange={(event) => setManualTags(event.target.value)}
-            placeholder="tags,comma,separated"
-          />
-          <button type="submit">Add manual update</button>
-        </form>
-      </section>
+      {isAdminRoute ? (
+        <>
+              <section className="manual-panel">
+                <h3>Manual curation</h3>
+                <p>Add your own updates so you always stay in control of the narrative.</p>
+                <form onSubmit={handleManualSubmit} className="manual-form">
+                  <input
+                    value={manualTitle}
+                    onChange={(event) => setManualTitle(event.target.value)}
+                    placeholder="Update title"
+                  />
+                  <textarea
+                    value={manualSummary}
+                    onChange={(event) => setManualSummary(event.target.value)}
+                    placeholder="Short summary"
+                    rows={3}
+                  />
+                  <input
+                    value={manualTags}
+                    onChange={(event) => setManualTags(event.target.value)}
+                    placeholder="tags,comma,separated"
+                  />
+                  <button type="submit">Add manual update</button>
+                </form>
+              </section>
 
-      <section className="manual-panel">
-        <h3>Admin: Update Platform Links</h3>
-        <p>Edit labels, descriptions, and links for each platform card.</p>
-        <div className="admin-resource-list">
-          {profileLinks.map((resource) => (
-            <article key={resource.id} className="resource-editor-card">
-              <input
-                value={resource.label}
-                onChange={(event) =>
-                  handleProfileLinkChange(resource.id, 'label', event.target.value)
-                }
-                placeholder="Label"
-              />
-              <textarea
-                rows={2}
-                value={resource.description}
-                onChange={(event) =>
-                  handleProfileLinkChange(resource.id, 'description', event.target.value)
-                }
-                placeholder="Description"
-              />
-              <input
-                value={resource.link}
-                onChange={(event) =>
-                  handleProfileLinkChange(resource.id, 'link', event.target.value)
-                }
-                placeholder="https://..."
-              />
-            </article>
-          ))}
-        </div>
-      </section>
+              <section className="manual-panel">
+                <h3>Admin: Update Platform Links</h3>
+                <p>Edit labels, descriptions, and links for each platform card.</p>
+                <div className="admin-resource-list">
+                  {profileLinks.map((resource) => (
+                    <article key={resource.id} className="resource-editor-card">
+                      <input
+                        value={resource.label}
+                        onChange={(event) =>
+                          handleProfileLinkChange(resource.id, 'label', event.target.value)
+                        }
+                        placeholder="Label"
+                      />
+                      <textarea
+                        rows={2}
+                        value={resource.description}
+                        onChange={(event) =>
+                          handleProfileLinkChange(resource.id, 'description', event.target.value)
+                        }
+                        placeholder="Description"
+                      />
+                      <input
+                        value={resource.link}
+                        onChange={(event) =>
+                          handleProfileLinkChange(resource.id, 'link', event.target.value)
+                        }
+                        placeholder="https://..."
+                      />
+                    </article>
+                  ))}
+                </div>
+              </section>
 
-      <section className="manual-panel">
-        <h3>Admin: Add Gallery Image</h3>
-        <p>Add new image cards to Islamic ijazat or secular accomplishments.</p>
-        <form onSubmit={handleGallerySubmit} className="manual-form">
-          <select
-            value={galleryType}
-            onChange={(event) => setGalleryType(event.target.value)}
-          >
-            <option value="ijazah">Islamic Ijazah</option>
-            <option value="degree">Secular Degree / Accomplishment</option>
-          </select>
-          <input
-            value={galleryTitle}
-            onChange={(event) => setGalleryTitle(event.target.value)}
-            placeholder="Image title"
-          />
-          <textarea
-            value={galleryDescription}
-            onChange={(event) => setGalleryDescription(event.target.value)}
-            placeholder="Short description"
-            rows={2}
-          />
-          <input
-            value={galleryImageUrl}
-            onChange={(event) => setGalleryImageUrl(event.target.value)}
-            placeholder="https://image-url"
-          />
-          <button type="submit">Add gallery image</button>
-        </form>
-      </section>
+              <section className="manual-panel">
+                <h3>Admin: Add Gallery Image</h3>
+                <p>Add new image cards to Islamic ijazat or secular accomplishments.</p>
+                <form onSubmit={handleGallerySubmit} className="manual-form">
+                  <select
+                    value={galleryType}
+                    onChange={(event) => setGalleryType(event.target.value)}
+                  >
+                    <option value="ijazah">Islamic Ijazah</option>
+                    <option value="degree">Secular Degree / Accomplishment</option>
+                  </select>
+                  <input
+                    value={galleryTitle}
+                    onChange={(event) => setGalleryTitle(event.target.value)}
+                    placeholder="Image title"
+                  />
+                  <textarea
+                    value={galleryDescription}
+                    onChange={(event) => setGalleryDescription(event.target.value)}
+                    placeholder="Short description"
+                    rows={2}
+                  />
+                  <input
+                    value={galleryImageUrl}
+                    onChange={(event) => setGalleryImageUrl(event.target.value)}
+                    placeholder="https://image-url"
+                  />
+                  <button type="submit">Add gallery image</button>
+                </form>
+              </section>
+        </>
+      ) : null}
     </main>
   )
 }
