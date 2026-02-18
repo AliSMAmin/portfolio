@@ -71,8 +71,8 @@ const INITIAL_PROFILE_LINKS = [
   {
     id: 'islamic-blog-latest',
     label: 'My Most Recent Islamic Blog Post',
-    description: 'Open your latest Islamic writing.',
-    link: 'https://aliamin.info/category/islam/',
+    description: 'Are Sufis Mushrik or Are Salafis Extremists? | A New Analysis of Istighātha & Tawassul',
+    link: 'https://www.youtube.com/watch?v=reIL-x_tf2w',
   },
   {
     id: 'philosophy-blog-latest',
@@ -113,9 +113,9 @@ const INITIAL_ITEMS = [
     id: 'yt-1',
     source: 'youtube',
     type: 'video',
-    title: 'Latest YouTube Upload: Building Ethical Legal AI',
-    summary: 'A practical talk on human-centered legal technology and why transparency matters.',
-    link: 'https://youtube.com/@Alishukriamin',
+    title: 'Are Sufis Mushrik or Are Salafis Extremists? | A New Analysis of Istighātha & Tawassul',
+    summary: 'Latest featured lecture exploring Istighātha and Tawassul with a new analysis.',
+    link: 'https://www.youtube.com/watch?v=reIL-x_tf2w',
     publishedAt: '2026-02-15T15:20:00Z',
     tags: ['tech', 'humanities'],
   },
@@ -382,6 +382,14 @@ function App() {
         </article>
 
         <div className="highlight-grid">
+          <article className="mini-highlight">
+            <h3>Featured Islamic analysis</h3>
+            <p className="mini-title">Are Sufis Mushrik or Are Salafis Extremists?</p>
+            <a href="https://www.youtube.com/watch?v=reIL-x_tf2w" target="_blank" rel="noreferrer">
+              Watch on YouTube
+            </a>
+          </article>
+
           <article className="mini-highlight">
             <h3>Currently reading</h3>
             <p className="mini-brand">Oneworld</p>

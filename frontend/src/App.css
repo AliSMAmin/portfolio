@@ -154,6 +154,16 @@ body {
   font-weight: 700;
 }
 
+
+.mini-highlight a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.mini-highlight a:hover {
+  text-decoration: underline;
+}
 /* Platform-inspired resource cards with masonry layout */
 .resource-grid {
   display: grid;
