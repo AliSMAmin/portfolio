@@ -75,6 +75,19 @@ body {
   font-weight: 700;
 }
 
+.github-banner-link {
+  display: block;
+  margin-bottom: 1.25rem;
+}
+
+.github-banner {
+  width: 100%;
+  max-width: 620px;
+  border-radius: 0.75rem;
+  display: block;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
 /* Platform-inspired resource cards with masonry layout */
 .resource-grid {
   display: grid;
@@ -144,6 +157,25 @@ body {
 .resource-card:nth-child(7) {
   border-left: 4px solid #0a66c2;
   background: linear-gradient(135deg, #fff 0%, #f3f6f8 100%);
+}
+
+
+/* Islamic blog-inspired (emerald accent) */
+.resource-card:nth-child(8) {
+  border-left: 4px solid #0f766e;
+  background: linear-gradient(135deg, #fff 0%, #f0fdfa 100%);
+}
+
+/* Philosophy blog-inspired (violet accent) */
+.resource-card:nth-child(9) {
+  border-left: 4px solid #7c3aed;
+  background: linear-gradient(135deg, #fff 0%, #f5f3ff 100%);
+}
+
+/* Humanities blog-inspired (amber accent) */
+.resource-card:nth-child(10) {
+  border-left: 4px solid #d97706;
+  background: linear-gradient(135deg, #fff 0%, #fffbeb 100%);
 }
 
 .resource-card h2 {

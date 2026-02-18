@@ -27,46 +27,64 @@ const SOURCE_LABELS = {
 
 const INITIAL_PROFILE_LINKS = [
   {
-    id: 'amazon-books',
-    label: 'Published Books',
-    description: 'Author page with your published books and updates.',
+    id: 'youtube-latest',
+    label: 'My Most Recent Youtube Video',
+    description: 'Open your latest YouTube upload feed.',
+    link: 'https://www.youtube.com/@Alishukriamin',
+  },
+  {
+    id: 'instagram-latest',
+    label: 'My Most Recent Instagram Post',
+    description: 'Open your latest Instagram activity.',
+    link: 'https://www.instagram.com/alishukriamin/',
+  },
+  {
+    id: 'reddit-latest',
+    label: 'My Most Recent Reddit Post',
+    description: 'Open your newest Reddit posts and comments.',
+    link: 'https://www.reddit.com/user/aibnsamin1/',
+  },
+  {
+    id: 'publication-latest',
+    label: 'My Most Recent Publication',
+    description: 'Open your latest publication and books page.',
     link: 'https://www.amazon.com/stores/Ali-Shukri-Amin/author/B0FDY9Z5M8',
   },
   {
-    id: 'storygraph',
-    label: "What I'm Reading",
-    description: 'Current reads and progress on StoryGraph.',
+    id: 'reading-current',
+    label: 'What I am Currently Reading',
+    description: 'Open your StoryGraph reading profile.',
     link: 'https://app.thestorygraph.com/profile/alishukriamin',
   },
   {
-    id: 'beli',
-    label: 'Latest Fine Dining',
-    description: 'Recent restaurant activity and dining logs on Beli.',
+    id: 'restaurant-latest',
+    label: 'Latest Restaurant Review',
+    description: 'Open your most recent Beli dining review activity.',
     link: 'https://beliapp.co/app/aliflaneur',
   },
   {
-    id: 'stash',
-    label: 'Video Games',
-    description: 'Games played and tracked on Stash.',
+    id: 'game-latest',
+    label: 'Latest Game Played',
+    description: 'Open your newest game activity on Stash.',
     link: 'https://stash.games/users/alishukriamin',
   },
   {
-    id: 'letterboxd',
-    label: 'Movies',
-    description: 'Latest films watched and reviewed on Letterboxd.',
-    link: 'https://letterboxd.com/aibnsamin/',
+    id: 'islamic-blog-latest',
+    label: 'My Most Recent Islamic Blog Post',
+    description: 'Open your latest Islamic writing.',
+    link: 'https://aliamin.info/category/islam/',
   },
   {
-    id: 'github',
-    label: 'GitHub',
-    description: 'Code, repositories, and ongoing project work.',
-    link: 'https://github.com/AliSMAmin',
+    id: 'philosophy-blog-latest',
+    label: 'My Most Recent Philosophy Blog Post',
+    description: 'Open your newest philosophy post.',
+    link: 'https://asaphilosophy.wordpress.com',
   },
   {
-    id: 'linkedin',
-    label: 'LinkedIn',
-    description: 'Professional profile, experience, and highlights.',
-    link: 'https://www.linkedin.com/in/ali-juristai/',
+    id: 'humanities-blog-latest',
+    label: 'My Most Recent Humanities Blog Post',
+    description: 'Open your latest humanities writing.',
+    link: 'https://asahumanities.wordpress.com',
   },
 ]
 
@@ -327,6 +345,20 @@ function App() {
             </a>
           )}
         </div>
+        <a
+          className="github-banner-link"
+          href="https://github.com/AliSMAmin"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Ali GitHub profile"
+        >
+          <img
+            className="github-banner"
+            src="https://camo.githubusercontent.com/c966e6549a477ccfda0662ba936145716368d536e756f6e44e4485bd6eef75da/68747470733a2f2f6769746875622d726561646d652d73747265616b2d73746174732e6865726f6b756170702e636f6d2f3f757365723d416c69534d416d696e267468656d653d746f6b796f6e6967687426686964655f626f726465723d74727565"
+            alt="Ali GitHub stats banner"
+          />
+        </a>
+
         <h1>Ali&apos;s Unified Portfolio Feed</h1>
         <p>
           Latest activity from YouTube, Reddit, Instagram, books, reading, movies,
