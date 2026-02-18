@@ -22,6 +22,51 @@ const SOURCE_LABELS = {
   manual: 'Manual',
 }
 
+const PROFILE_LINKS = [
+  {
+    id: 'amazon-books',
+    label: 'Published Books',
+    description: 'Author page with your published books and updates.',
+    link: 'https://www.amazon.com/stores/Ali-Shukri-Amin/author/B0FDY9Z5M8',
+  },
+  {
+    id: 'storygraph',
+    label: 'What I\'m Reading',
+    description: 'Current reads and progress on StoryGraph.',
+    link: 'https://app.thestorygraph.com/profile/alishukriamin',
+  },
+  {
+    id: 'beli',
+    label: 'Latest Fine Dining',
+    description: 'Recent restaurant activity and dining logs on Beli.',
+    link: 'https://beliapp.co/app/aliflaneur',
+  },
+  {
+    id: 'stash',
+    label: 'Video Games',
+    description: 'Games played and tracked on Stash.',
+    link: 'https://stash.games/users/alishukriamin',
+  },
+  {
+    id: 'letterboxd',
+    label: 'Movies',
+    description: 'Latest films watched and reviewed on Letterboxd.',
+    link: 'https://letterboxd.com/aibnsamin/',
+  },
+  {
+    id: 'github',
+    label: 'GitHub',
+    description: 'Code, repositories, and ongoing project work.',
+    link: 'https://github.com/AliSMAmin',
+  },
+  {
+    id: 'linkedin',
+    label: 'LinkedIn',
+    description: 'Professional profile, experience, and highlights.',
+    link: 'https://www.linkedin.com/in/ali-juristai/',
+  },
+]
+
 const INITIAL_ITEMS = [
   {
     id: 'yt-1',
@@ -57,21 +102,41 @@ const INITIAL_ITEMS = [
     id: 'manual-1',
     source: 'manual',
     type: 'entry',
-    title: 'Film log update: Weekend cinema notes',
-    summary: 'Short review notes and themes from recent films.',
-    link: '#',
-    publishedAt: '2026-02-13T20:45:00Z',
-    tags: ['film', 'humanities'],
+    title: 'Bookshelf update: Newly published titles now live on Amazon',
+    summary: 'Published books are now visible via your Amazon author page in the hub.',
+    link: 'https://www.amazon.com/stores/Ali-Shukri-Amin/author/B0FDY9Z5M8',
+    publishedAt: '2026-02-15T18:10:00Z',
+    tags: ['literature', 'humanities'],
   },
   {
     id: 'manual-2',
     source: 'manual',
     type: 'entry',
-    title: 'Motorcycling journal: Early morning route',
-    summary: 'Ride highlights, route conditions, and gear reflections.',
-    link: '#',
-    publishedAt: '2026-02-12T07:10:00Z',
-    tags: ['motorcycling'],
+    title: 'Reading tracker: StoryGraph profile synced',
+    summary: 'Current reading list and progress are linked from your unified dashboard.',
+    link: 'https://app.thestorygraph.com/profile/alishukriamin',
+    publishedAt: '2026-02-14T20:45:00Z',
+    tags: ['literature', 'philosophy'],
+  },
+  {
+    id: 'manual-3',
+    source: 'manual',
+    type: 'entry',
+    title: 'Film log and reviews available on Letterboxd',
+    summary: 'Recent movies watched can be tracked from your Letterboxd page.',
+    link: 'https://letterboxd.com/aibnsamin/',
+    publishedAt: '2026-02-13T21:25:00Z',
+    tags: ['film', 'humanities'],
+  },
+  {
+    id: 'manual-4',
+    source: 'manual',
+    type: 'entry',
+    title: 'Fine dining list linked via Beli',
+    summary: 'Latest restaurant activity is now one click from the dashboard.',
+    link: 'https://beliapp.co/app/aliflaneur',
+    publishedAt: '2026-02-12T08:40:00Z',
+    tags: ['dining'],
   },
 ]
 
@@ -150,10 +215,22 @@ function App() {
         <p className="eyebrow">AliHub — single pane of glass</p>
         <h1>Ali&apos;s Unified Portfolio Feed</h1>
         <p>
-          Latest activity from YouTube, Reddit, Instagram, and manually curated
-          updates in one dashboard.
+          Latest activity from YouTube, Reddit, Instagram, books, reading, movies,
+          fine dining, and manually curated updates in one dashboard.
         </p>
       </header>
+
+      <section className="resource-grid" aria-label="Ali profile resources">
+        {PROFILE_LINKS.map((resource) => (
+          <article key={resource.id} className="resource-card">
+            <h2>{resource.label}</h2>
+            <p>{resource.description}</p>
+            <a href={resource.link} target="_blank" rel="noreferrer">
+              Visit link
+            </a>
+          </article>
+        ))}
+      </section>
 
       <section className="source-grid">
         {latestBySource.map(({ source, latest }) => (
