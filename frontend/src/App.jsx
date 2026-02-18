@@ -98,16 +98,6 @@ const INITIAL_IJAZAT = [
   },
 ]
 
-const INITIAL_DEGREES = [
-  {
-    id: 'degree-1',
-    title: 'Degree / Accomplishment Placeholder',
-    imageUrl:
-      'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80',
-    description: 'Replace with your diploma, certificate, or award image.',
-  },
-]
-
 const INITIAL_ITEMS = [
   {
     id: 'yt-1',
@@ -174,7 +164,6 @@ function App() {
   const [items, setItems] = useState(INITIAL_ITEMS)
   const [profileLinks, setProfileLinks] = useState(INITIAL_PROFILE_LINKS)
   const [ijazatGallery, setIjazatGallery] = useState(INITIAL_IJAZAT)
-  const [degreesGallery, setDegreesGallery] = useState(INITIAL_DEGREES)
   const [activeCategory, setActiveCategory] = useState('all')
   const [activeSource, setActiveSource] = useState('all')
   const [manualTitle, setManualTitle] = useState('')
@@ -189,7 +178,6 @@ function App() {
   const [galleryTitle, setGalleryTitle] = useState('')
   const [galleryDescription, setGalleryDescription] = useState('')
   const [galleryImageUrl, setGalleryImageUrl] = useState('')
-  const [galleryType, setGalleryType] = useState('ijazah')
 
   const normalizedPath = window.location.pathname.replace(/\/+$/, '') || '/'
   const isAdminRoute = normalizedPath === '/admin'
@@ -278,17 +266,13 @@ function App() {
     }
 
     const newItem = {
-      id: `${galleryType}-${Date.now()}`,
+      id: `ijazah-${Date.now()}`,
       title,
       description,
       imageUrl,
     }
 
-    if (galleryType === 'ijazah') {
-      setIjazatGallery((previous) => [newItem, ...previous])
-    } else {
-      setDegreesGallery((previous) => [newItem, ...previous])
-    }
+    setIjazatGallery((previous) => [newItem, ...previous])
 
     setGalleryTitle('')
     setGalleryDescription('')
@@ -444,19 +428,6 @@ function App() {
         </div>
       </section>
 
-      <section className="gallery-section">
-        <h2>Secular Degrees & Accomplishments</h2>
-        <div className="image-gallery-grid">
-          {degreesGallery.map((item) => (
-            <article key={item.id} className="gallery-card">
-              <img src={item.imageUrl} alt={item.title} loading="lazy" />
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
       <section className="source-grid">
         {latestBySource.map(({ source, latest }) => (
           <article key={source} className="source-card">
@@ -584,15 +555,8 @@ function App() {
 
               <section className="manual-panel">
                 <h3>Admin: Add Gallery Image</h3>
-                <p>Add new image cards to Islamic ijazat or secular accomplishments.</p>
+                <p>Add new image cards to Islamic ijazat.</p>
                 <form onSubmit={handleGallerySubmit} className="manual-form">
-                  <select
-                    value={galleryType}
-                    onChange={(event) => setGalleryType(event.target.value)}
-                  >
-                    <option value="ijazah">Islamic Ijazah</option>
-                    <option value="degree">Secular Degree / Accomplishment</option>
-                  </select>
                   <input
                     value={galleryTitle}
                     onChange={(event) => setGalleryTitle(event.target.value)}
