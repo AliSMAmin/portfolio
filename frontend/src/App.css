@@ -88,6 +88,72 @@ body {
   border: 1px solid rgba(148, 163, 184, 0.4);
 }
 
+.default-highlights {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.highlight-card,
+.mini-highlight {
+  background: #fff;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.highlight-card {
+  padding: 1.5rem;
+}
+
+.highlight-card h2 {
+  margin: 0.25rem 0 0.5rem;
+}
+
+.highlight-label {
+  margin: 0;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6366f1;
+  font-weight: 700;
+}
+
+.highlight-meta,
+.highlight-note {
+  font-weight: 600;
+  color: #334155;
+}
+
+.highlight-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.mini-highlight {
+  padding: 1rem 1.1rem;
+}
+
+.mini-highlight h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.05rem;
+}
+
+.mini-brand {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mini-title {
+  margin: 0.2rem 0;
+  font-weight: 700;
+}
+
 /* Platform-inspired resource cards with masonry layout */
 .resource-grid {
   display: grid;
@@ -618,6 +684,7 @@ button:active {
     padding: 1.5rem;
   }
 
+  .default-highlights,
   .resource-grid,
   .feed-grid {
     grid-template-columns: 1fr;

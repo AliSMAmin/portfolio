@@ -366,6 +366,51 @@ function App() {
         </p>
       </header>
 
+      <section className="default-highlights" aria-label="Default featured updates">
+        <article className="highlight-card">
+          <p className="highlight-label">Carousel slide 1</p>
+          <h2>Is Bitcoin Halal?: Cryptocurrencies, Blockchain, and the Shari'a</h2>
+          <p className="highlight-meta">by Ali Amin</p>
+          <p>
+            Ali Shukri Amin&apos;s work, &quot;Is Bitcoin Halal?&quot; explores the permissibility
+            of cryptocurrencies, particularly Bitcoin, within Islamic law. The
+            discussion delves into Islamic concepts such as Shari&apos;a, Fiqh, and
+            Fatwa, as well as economic principles and the mechanics of modern
+            financial systems.
+          </p>
+          <p className="highlight-note">To buy, select a Format:</p>
+        </article>
+
+        <div className="highlight-grid">
+          <article className="mini-highlight">
+            <h3>Currently reading</h3>
+            <p className="mini-brand">Oneworld</p>
+            <p className="mini-title">Salafism: Between Fact and Fiction</p>
+            <p>Yasir Qadhi</p>
+          </article>
+
+          <article className="mini-highlight">
+            <h3>Recent reviews</h3>
+            <p className="mini-title">Resurrection (2025)</p>
+            <p>★★★★★ Liked · Watched 15 Feb 2026</p>
+            <p>
+              Seen at the National Museum of Asian Art, Freer Gallery: The motion
+              picture itself is a rebellion against the ephemeral nature of life.
+            </p>
+          </article>
+
+          <article className="mini-highlight">
+            <h3>Most recent fine dining</h3>
+            <p className="mini-title">Oyamel Cocina in DC</p>
+          </article>
+
+          <article className="mini-highlight">
+            <h3>Currently playing</h3>
+            <p className="mini-title">Enderal: Forgotten Stories</p>
+          </article>
+        </div>
+      </section>
+
       <section className="resource-grid" aria-label="Ali profile resources">
         {profileLinks.map((resource) => (
           <article key={resource.id} className="resource-card">
