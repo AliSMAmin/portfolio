@@ -205,6 +205,21 @@ body {
   font-weight: 700;
 }
 
+
+.section-label-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.social-icon {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 0.2rem;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 .dot-row {
   display: flex;
   gap: 0.45rem;

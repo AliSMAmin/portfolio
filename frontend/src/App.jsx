@@ -9,6 +9,13 @@ import salafismCover from './assets/CurrentReads/understanding-salafism-97817860
 import awsCert from './assets/secularDiplomas/AWS-SAA.png'
 import blockchainCert from './assets/secularDiplomas/Certified Blockchain Expert.png'
 import mastersDegree from './assets/secularDiplomas/mastersdegree.png'
+import youtubeIcon from './assets/Icons/youtube.png'
+import githubIcon from './assets/Icons/github.png'
+import redditIcon from './assets/Icons/Reddit-Logo-1958974045.jpg'
+import stashIcon from './assets/Icons/stash-game-collection-tracker-logo-766785159.jpg'
+import letterboxdIcon from './assets/Icons/letterboxd-logo-alt-v-neg-rgb-1000px.png'
+import storyGraphIcon from './assets/Icons/Logo_for_The_StoryGraph.png'
+import beliIcon from './assets/Icons/Beli+Logo_FINAL070423.webp'
 
 const ijazatImages = Object.entries(
   import.meta.glob('./assets/Ijazat/*.{png,jpg,jpeg,JPG,JPEG,webp}', {
@@ -170,6 +177,17 @@ const DEFAULT_IMAGE_SELECTIONS = {
   cardHumanitiesBlog: 'blockchainCert',
 }
 
+
+const CARD_ICONS = {
+  youtube: { src: youtubeIcon, alt: 'YouTube icon' },
+  github: { src: githubIcon, alt: 'GitHub icon' },
+  movie: { src: letterboxdIcon, alt: 'Letterboxd icon' },
+  restaurant: { src: beliIcon, alt: 'Beli icon' },
+  playing: { src: stashIcon, alt: 'Stash icon' },
+  reading: { src: storyGraphIcon, alt: 'StoryGraph icon' },
+  reddit: { src: redditIcon, alt: 'Reddit icon' },
+}
+
 const getImageSrc = (selections, key) => IMAGE_LIBRARY[selections[key]]?.src ?? aliPortrait
 
 const ADMIN_USERNAME = 'ali+2@juristai.org'
@@ -227,6 +245,17 @@ function App() {
   const secularGallery = useMemo(() => secularImages, [])
 
   const activeHeroItem = heroSlides[activeSlide]
+
+  const renderSectionLabel = (label, cardId) => {
+    const icon = CARD_ICONS[cardId]
+
+    return (
+      <p className="section-label section-label-with-icon">
+        {icon ? <img src={icon.src} alt={icon.alt} className="social-icon" /> : null}
+        <span>{label}</span>
+      </p>
+    )
+  }
 
   const adminControls = [
     { key: 'heroPortrait', label: 'Hero Portrait' },
@@ -370,7 +399,7 @@ function App() {
 
       <section className="card-grid top-grid" aria-label="Top cards">
         <article className="card youtube-card">
-          <p className="section-label">Most Recent Islamic YouTube Video</p>
+          {renderSectionLabel('Most Recent Islamic YouTube Video', 'youtube')}
           <iframe
             src="https://www.youtube.com/embed/reIL-x_tf2w"
             title="Most recent Islamic YouTube video"
@@ -380,7 +409,7 @@ function App() {
         </article>
 
         <article className="card github-card">
-          <p className="section-label">GitHub Contributions</p>
+          {renderSectionLabel('GitHub Contributions', 'github')}
           <a href="https://github.com/AliSMAmin" target="_blank" rel="noreferrer">
             <img
               src="https://ghchart.rshah.org/AliSMAmin"
@@ -395,7 +424,7 @@ function App() {
         </article>
 
         <article className="card movie-card">
-          <p className="section-label">{TOP_MOVIE_CARD.label}</p>
+          {renderSectionLabel(TOP_MOVIE_CARD.label, 'movie')}
           <img src={getImageSrc(imageSelections, 'topMovieCard')} alt={TOP_MOVIE_CARD.title} className="card-image" />
           <h3>{TOP_MOVIE_CARD.title}</h3>
           <p>{TOP_MOVIE_CARD.description}</p>
@@ -405,7 +434,7 @@ function App() {
         </article>
 
         <article className="card restaurant-card">
-          <p className="section-label">Most Recent Restaurant Review</p>
+          {renderSectionLabel('Most Recent Restaurant Review', 'restaurant')}
           <img
             src={restaurantCarouselImages[activeRestaurantSlide]}
             alt="Restaurant review image"
@@ -421,7 +450,7 @@ function App() {
       <section className="card-grid multi" aria-label="Content cards">
         {CONTENT_CARDS.filter((card) => !['youtube', 'github', 'restaurant'].includes(card.id)).map((card) => (
           <article key={card.id} className="card">
-            <p className="section-label">{card.label}</p>
+            {renderSectionLabel(card.label, card.id)}
             {card.id !== 'reddit' ? (
               <img src={getImageSrc(imageSelections, contentCardImageMap[card.id])} alt={card.title} className="inline-card-image" />
             ) : null}
