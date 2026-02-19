@@ -280,6 +280,14 @@ body {
   grid-column: span 1;
 }
 
+.long-card {
+  grid-column: span 3;
+}
+
+.multi .long-card {
+  grid-column: span 2;
+}
+
 .youtube-card iframe {
   width: 100%;
   min-height: 300px;
@@ -385,7 +393,9 @@ body {
   .youtube-card,
   .github-card,
   .movie-card,
-  .restaurant-card {
+  .restaurant-card,
+  .long-card,
+  .multi .long-card {
     grid-column: auto;
   }
 }

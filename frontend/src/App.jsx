@@ -28,7 +28,7 @@ const ijazatImages = Object.entries(
   .map(([path, src], index) => ({
     title: `Ijazat Credential ${index + 1}`,
     description: path.split('/').pop()?.replace(/\.[^.]+$/, '').replace(/[_-]/g, ' ') ?? 'Ijazat credential',
-    image: src,
+    image: typeof src === 'string' ? src : src?.default,
   }))
 
 const secularImages = Object.entries(
@@ -42,7 +42,7 @@ const secularImages = Object.entries(
   .map(([path, src], index) => ({
     title: `Credential ${index + 1}`,
     description: path.split('/').pop()?.replace(/\.[^.]+$/, '').replace(/[_-]/g, ' ') ?? 'Professional credential',
-    image: src,
+    image: typeof src === 'string' ? src : src?.default,
   }))
 
 const IMAGE_LIBRARY = {
@@ -73,28 +73,20 @@ const TOP_MOVIE_CARD = {
 
 const CONTENT_CARDS = [
   {
-    id: 'youtube',
-    label: 'Most Recent Islamic YouTube Video',
-    title: 'Are Sufis Mushrik or Are Salafis Extremists?',
-    description: 'Are Sufis Mushrik or Are Salafis Extremists? A new analysis of Istighātha & Tawassul.',
-    link: 'https://www.youtube.com/watch?v=reIL-x_tf2w',
-    cta: 'Watch now',
+    id: 'reading',
+    label: 'What I Am Reading',
+    title: 'Salafism: Between Fact and Fiction',
+    description: 'Yasir Qadhi · current active read.',
+    link: 'https://app.thestorygraph.com/profile/alishukriamin',
+    cta: 'View reading tracker',
   },
   {
-    id: 'github',
-    label: 'GitHub Contributions',
-    title: 'AliSMAmin GitHub Activity',
-    description: 'Contribution chart and streak stats from my public profile.',
-    link: 'https://github.com/AliSMAmin',
-    cta: 'Open GitHub',
-  },
-  {
-    id: 'restaurant',
-    label: 'Most Recent Restaurant Review',
-    title: 'Oyamel Cocina in D.C.',
-    description: 'Featured dining update from Oyamel Cocina in Washington, D.C.',
-    link: 'https://beliapp.co/app/aliflaneur',
-    cta: 'View full dining review',
+    id: 'favorite-books',
+    label: 'My Favorite Books',
+    title: 'My Favorite Books',
+    description: 'A long-form shelf of the books that shaped my thinking most.',
+    link: 'https://app.thestorygraph.com/profile/alishukriamin',
+    cta: 'Explore favorite books',
   },
   {
     id: 'playing',
@@ -105,12 +97,28 @@ const CONTENT_CARDS = [
     cta: 'View game profile',
   },
   {
-    id: 'reading',
-    label: 'What I Am Reading',
-    title: 'Salafism: Between Fact and Fiction',
-    description: 'Yasir Qadhi · current active read.',
-    link: 'https://app.thestorygraph.com/profile/alishukriamin',
-    cta: 'View reading tracker',
+    id: 'favorite-games',
+    label: 'My Favorite Video Games',
+    title: 'My Favorite Video Games',
+    description: 'A curated collection of favorite games and all-time replays.',
+    link: 'https://stash.games/users/alishukriamin',
+    cta: 'View favorite games',
+  },
+  {
+    id: 'watching',
+    label: 'What Show I Am Currently Watching',
+    title: 'Current TV Tracking on Serializd',
+    description: 'Follow my latest TV activity and ongoing watchlist updates.',
+    link: 'https://www.serializd.com/',
+    cta: 'View Serializd profile',
+  },
+  {
+    id: 'favorite-shows',
+    label: 'My Favorite Shows',
+    title: 'My Favorite Shows',
+    description: 'A ranked list of shows I return to the most.',
+    link: 'https://www.serializd.com/',
+    cta: 'View favorite shows',
   },
   {
     id: 'instagram',
@@ -171,6 +179,12 @@ const DEFAULT_IMAGE_SELECTIONS = {
   restaurantCarousel3: 'aliPortrait',
   cardPlaying: 'enderalCover',
   cardReading: 'salafismCover',
+  cardFavoriteBooks: 'bitcoinBookCover',
+  cardFavoriteGames: 'enderalCover',
+  cardWatching: 'aliSuitPortrait',
+  cardFavoriteShows: 'aliPortrait',
+  cardTopMovies: 'aliSuitPortrait',
+  cardFavoriteRestaurants: 'salafismCover',
   cardInstagram: 'aliPortrait',
   cardIslamicBlog: 'aliPortrait',
   cardPhilosophyBlog: 'mastersDegree',
@@ -266,6 +280,12 @@ function App() {
     { key: 'restaurantCarousel3', label: 'Restaurant Carousel Image 3' },
     { key: 'cardPlaying', label: "Card: What I'm Playing" },
     { key: 'cardReading', label: 'Card: What I Am Reading' },
+    { key: 'cardFavoriteBooks', label: 'Card: My Favorite Books' },
+    { key: 'cardFavoriteGames', label: 'Card: My Favorite Video Games' },
+    { key: 'cardWatching', label: 'Card: What Show I Am Currently Watching' },
+    { key: 'cardFavoriteShows', label: 'Card: My Favorite Shows' },
+    { key: 'cardTopMovies', label: 'Card: My Top 100 Movies' },
+    { key: 'cardFavoriteRestaurants', label: 'Card: My Favorite Restaurants' },
     { key: 'cardInstagram', label: 'Card: Instagram' },
     { key: 'cardIslamicBlog', label: 'Card: Islamic Blog' },
     { key: 'cardPhilosophyBlog', label: 'Card: Philosophy Blog' },
@@ -295,6 +315,10 @@ function App() {
   const contentCardImageMap = {
     playing: 'cardPlaying',
     reading: 'cardReading',
+    'favorite-books': 'cardFavoriteBooks',
+    'favorite-games': 'cardFavoriteGames',
+    watching: 'cardWatching',
+    'favorite-shows': 'cardFavoriteShows',
     instagram: 'cardInstagram',
     'islamic-blog': 'cardIslamicBlog',
     'philosophy-blog': 'cardPhilosophyBlog',
@@ -433,6 +457,16 @@ function App() {
           </a>
         </article>
 
+        <article className="card long-card top-movies-card">
+          <p className="section-label">My Top 100 Movies</p>
+          <img src={getImageSrc(imageSelections, 'cardTopMovies')} alt="My top 100 movies" className="card-image" />
+          <h3>My Top 100 Movies</h3>
+          <p>My longlist of all-time favorite films.</p>
+          <a href="https://letterboxd.com/" target="_blank" rel="noreferrer">
+            Explore movie list
+          </a>
+        </article>
+
         <article className="card restaurant-card">
           {renderSectionLabel('Most Recent Restaurant Review', 'restaurant')}
           <img
@@ -445,11 +479,25 @@ function App() {
             View full dining review
           </a>
         </article>
+
+        <article className="card long-card favorite-restaurants-card">
+          <p className="section-label">My Favorite Restaurants</p>
+          <img
+            src={getImageSrc(imageSelections, 'cardFavoriteRestaurants')}
+            alt="My favorite restaurants"
+            className="card-image"
+          />
+          <h3>My Favorite Restaurants</h3>
+          <p>Favorite dining spots and comfort picks I keep returning to.</p>
+          <a href="https://beliapp.co/app/aliflaneur" target="_blank" rel="noreferrer">
+            Explore favorite restaurants
+          </a>
+        </article>
       </section>
 
       <section className="card-grid multi" aria-label="Content cards">
         {CONTENT_CARDS.filter((card) => !['youtube', 'github', 'restaurant'].includes(card.id)).map((card) => (
-          <article key={card.id} className="card">
+          <article key={card.id} className={['favorite-books', 'favorite-games', 'favorite-shows'].includes(card.id) ? 'card long-card' : 'card'}>
             {renderSectionLabel(card.label, card.id)}
             {card.id !== 'reddit' ? (
               <img src={getImageSrc(imageSelections, contentCardImageMap[card.id])} alt={card.title} className="inline-card-image" />
