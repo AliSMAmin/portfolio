@@ -232,8 +232,8 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.three-up {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.top-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .multi {
@@ -256,6 +256,15 @@ body {
   grid-column: span 2;
 }
 
+.github-card {
+  grid-column: span 2;
+}
+
+.movie-card,
+.restaurant-card {
+  grid-column: span 1;
+}
+
 .youtube-card iframe {
   width: 100%;
   min-height: 300px;
@@ -273,10 +282,6 @@ body {
 
 .github-streak {
   margin-top: 0.6rem;
-}
-
-.restaurant-card {
-  grid-column: span 2;
 }
 
 .card-image,
@@ -349,7 +354,7 @@ body {
 
 @media (max-width: 980px) {
   .main-carousel,
-  .three-up,
+  .top-grid,
   .multi {
     grid-template-columns: 1fr;
   }
@@ -363,6 +368,8 @@ body {
   }
 
   .youtube-card,
+  .github-card,
+  .movie-card,
   .restaurant-card {
     grid-column: auto;
   }
