@@ -4,8 +4,8 @@ import './App.css'
 import aliPortrait from './assets/PicturesOfAli/8.0.jpg'
 import aliSuitPortrait from './assets/PicturesOfAli/8.7 (8.7) Suit (Editted).jpg'
 import bitcoinBookCover from './assets/Publications/Is Bitcoin Halal.jpg'
-import enderalCover from './assets/Games/Enderal.jpg'
-import salafismCover from './assets/CurrentReads/understanding-salafism-9781786078483_hr-923828085.jpg'
+import enderalCover from './assets/Games/CurrentlyPlaying/Enderal.jpg'
+import salafismCover from './assets/Books/CurrentReads/understanding-salafism-9781786078483_hr-923828085.jpg'
 import awsCert from './assets/secularDiplomas/AWS-SAA.png'
 import blockchainCert from './assets/secularDiplomas/Certified Blockchain Expert.png'
 import mastersDegree from './assets/secularDiplomas/mastersdegree.png'
@@ -164,6 +164,7 @@ const CONTENT_CARDS = [
 
 const HERO_CAROUSEL_SLIDES = [TOP_MOVIE_CARD, ...CONTENT_CARDS].map((card) => ({
   id: `slide-${card.id}`,
+  cardId: card.id,
   title: card.label,
   description: card.description,
   link: card.link,
@@ -204,6 +205,21 @@ const CARD_ICONS = {
 
 const getImageSrc = (selections, key) => IMAGE_LIBRARY[selections[key]]?.src ?? aliPortrait
 
+const heroSlideImageMap = {
+  movie: 'topMovieCard',
+  reading: 'cardReading',
+  'favorite-books': 'cardFavoriteBooks',
+  playing: 'cardPlaying',
+  'favorite-games': 'cardFavoriteGames',
+  watching: 'cardWatching',
+  'favorite-shows': 'cardFavoriteShows',
+  instagram: 'cardInstagram',
+  reddit: 'heroSlideDefault',
+  'islamic-blog': 'cardIslamicBlog',
+  'philosophy-blog': 'cardPhilosophyBlog',
+  'humanities-blog': 'cardHumanitiesBlog',
+}
+
 const ADMIN_USERNAME = 'ali+2@juristai.org'
 const ADMIN_PASSWORD = 'AtticusDev1234@'
 
@@ -242,7 +258,11 @@ function App() {
   }
 
   const heroSlides = useMemo(
-    () => HERO_CAROUSEL_SLIDES.map((slide) => ({ ...slide, image: getImageSrc(imageSelections, 'heroSlideDefault') })),
+    () =>
+      HERO_CAROUSEL_SLIDES.map((slide) => ({
+        ...slide,
+        image: getImageSrc(imageSelections, heroSlideImageMap[slide.cardId] ?? 'heroSlideDefault'),
+      })),
     [imageSelections],
   )
 
@@ -397,6 +417,10 @@ function App() {
       <header className="hero">
         <img className="hero-portrait" src={getImageSrc(imageSelections, 'heroPortrait')} alt="Ali Shukri Amin" />
         <h1>Ali Shukri Amin&apos;s Portfolio</h1>
+        <p className="hero-description">
+          Ṭālib al-&apos;Ilm☝Muwahhid 🇸🇩 • Tech CEO &amp; MS IT/SWE • Qira&apos;āt, Hadīth, Aqīda, Fiqh, Ihsān • Former
+          Prisoner • Phil, Psych, Geopolitics, MENA, literature, movies, dining, coffee, tea, fashion, motorcycling
+        </p>
       </header>
 
       <section className="main-carousel" aria-label="Main content carousel">
