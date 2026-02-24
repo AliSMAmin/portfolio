@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 
-import aliPortrait from './assets/PicturesOfAli/8.0.jpg'
+import aliPortrait from './assets/PicturesOfAli/9.3 (edit).jpg'
 import aliSuitPortrait from './assets/PicturesOfAli/8.7 (8.7) Suit (Editted).jpg'
 import bitcoinBookCover from './assets/Publications/Is Bitcoin Halal.jpg'
 import enderalCover from './assets/Games/CurrentlyPlaying/Enderal.jpg'
