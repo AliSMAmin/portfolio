@@ -147,6 +147,44 @@ body {
   color: #334155;
 }
 
+.hero-contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 0.75rem;
+  max-width: 70ch;
+}
+
+.hero-contact-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #1d4ed8;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.hero-contact-links a:hover {
+  text-decoration: underline;
+}
+
+.social-icon-link {
+  width: 1.25rem;
+  height: 1.25rem;
+  justify-content: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #fff;
+  line-height: 1;
+  padding: 0;
+}
+
+.social-icon-link span {
+  font-size: 0.6rem;
+  line-height: 1;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

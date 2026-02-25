@@ -418,9 +418,41 @@ function App() {
         <img className="hero-portrait" src={getImageSrc(imageSelections, 'heroPortrait')} alt="Ali Shukri Amin" />
         <h1>Ali Shukri Amin&apos;s Portfolio</h1>
         <p className="hero-description">
-          Ṭālib al-&apos;Ilm☝Muwahhid 🇸🇩 • Tech CEO &amp; MS IT/SWE • Qira&apos;āt, Hadīth, Aqīda, Fiqh, Ihsān • Former
-          Prisoner • Phil, Psych, Geopolitics, MENA, literature, movies, dining, coffee, tea, fashion, motorcycling
+          Ṭālib al-&apos;Ilm☝Muwahhid 🇸🇩 • Tech CEO &amp; MS IT/SWE • Qira&apos;āt, Hadīth, Aqīda, Fiqh, Ihsān • Political
+          prisoner during the Syrian civil war • Mensa member • Phil, Psych, Geopolitics, MENA, literature, movies,
+          dining, coffee, tea, fashion, motorcycling
         </p>
+        <div className="hero-contact-links" aria-label="Contact and social links">
+          <a href="https://wa.me/15714126731" target="_blank" rel="noreferrer">
+            <span aria-hidden="true">💬</span> WhatsApp: +1 571 412 6731
+          </a>
+          <a href="https://www.linkedin.com/in/ali-juristai/" target="_blank" rel="noreferrer">
+            <span aria-hidden="true">in</span> LinkedIn
+          </a>
+          <a href="mailto:ali@aliamin.info">
+            <span aria-hidden="true">✉</span> ali@aliamin.info
+          </a>
+          <a
+            href="https://www.instagram.com/alishukriamin/"
+            target="_blank"
+            rel="noreferrer"
+            className="social-icon-link"
+            aria-label="Instagram"
+            title="Instagram"
+          >
+            <span aria-hidden="true">◎</span>
+          </a>
+          <a
+            href="https://www.youtube.com/watch?v=reIL-x_tf2w"
+            target="_blank"
+            rel="noreferrer"
+            className="social-icon-link"
+            aria-label="YouTube"
+            title="YouTube"
+          >
+            <span aria-hidden="true">▶</span>
+          </a>
+        </div>
       </header>
 
       <section className="main-carousel" aria-label="Main content carousel">
