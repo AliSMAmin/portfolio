@@ -220,8 +220,8 @@ const heroSlideImageMap = {
   'humanities-blog': 'cardHumanitiesBlog',
 }
 
-const ADMIN_USERNAME = 'ali+2@juristai.org'
-const ADMIN_PASSWORD = 'AtticusDev1234@'
+const ADMIN_USERNAME = import.meta.env.VITE_ADMIN_USERNAME ?? ''
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD ?? ''
 
 function App() {
   const [activeSlide, setActiveSlide] = useState(0)
@@ -314,7 +314,7 @@ function App() {
 
   const handleAdminLogin = (event) => {
     event.preventDefault()
-    if (adminUsername === ADMIN_USERNAME && adminPassword === ADMIN_PASSWORD) {
+    if (ADMIN_USERNAME && ADMIN_PASSWORD && adminUsername === ADMIN_USERNAME && adminPassword === ADMIN_PASSWORD) {
       setIsAdminAuthenticated(true)
       setAdminError('')
       setAdminPassword('')
