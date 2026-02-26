@@ -165,23 +165,23 @@ body {
   font-size: 0.9rem;
 }
 
+.contact-icon {
+  width: 1rem;
+  height: 1rem;
+  object-fit: contain;
+  border-radius: 0.2rem;
+}
+
 .hero-contact-links a:hover {
   text-decoration: underline;
 }
 
 .social-icon-link {
-  width: 1.25rem;
-  height: 1.25rem;
-  justify-content: center;
+  min-height: 1.75rem;
+  padding: 0.2rem 0.5rem;
   border: 1px solid #cbd5e1;
   border-radius: 999px;
   background: #fff;
-  line-height: 1;
-  padding: 0;
-}
-
-.social-icon-link span {
-  font-size: 0.6rem;
   line-height: 1;
 }
 
@@ -299,7 +299,7 @@ body {
 }
 
 .multi {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(15, minmax(0, 1fr));
 }
 
 .card {
@@ -331,8 +331,40 @@ body {
   grid-column: span 3;
 }
 
-.multi .long-card {
-  grid-column: span 2;
+.multi .content-card-reading,
+.multi .content-card-playing,
+.multi .content-card-watching {
+  grid-column: 1 / 4;
+}
+
+.multi .content-card-favorite-books,
+.multi .content-card-favorite-games,
+.multi .content-card-favorite-shows {
+  grid-column: 4 / 16;
+}
+
+.multi .content-card-reading,
+.multi .content-card-favorite-books {
+  grid-row: 1;
+}
+
+.multi .content-card-playing,
+.multi .content-card-favorite-games {
+  grid-row: 2;
+}
+
+.multi .content-card-watching,
+.multi .content-card-favorite-shows {
+  grid-row: 3;
+}
+
+.multi .content-card-instagram,
+.multi .content-card-reddit,
+.multi .content-card-islamic-blog,
+.multi .content-card-philosophy-blog,
+.multi .content-card-humanities-blog {
+  grid-column: span 3;
+  grid-row: 4;
 }
 
 .youtube-card iframe {

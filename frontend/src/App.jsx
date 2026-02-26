@@ -16,6 +16,13 @@ import stashIcon from './assets/Icons/stash-game-collection-tracker-logo-7667851
 import letterboxdIcon from './assets/Icons/letterboxd-logo-alt-v-neg-rgb-1000px.png'
 import storyGraphIcon from './assets/Icons/Logo_for_The_StoryGraph.png'
 import beliIcon from './assets/Icons/Beli+Logo_FINAL070423.webp'
+import whatsappIcon from './assets/Icons/whatsapp-logo-vector-11573849504ftryug0qkh-3425029298.png'
+import linkedinIcon from './assets/Icons/linkedin-logo-linkedin-symbol-linkedin-icon-free-free-vector-3472963540.jpg'
+import favoriteBooksCover from './assets/Books/FavoriteBooks/Screenshot 2026-02-21 133002.png'
+import favoriteGameCover from './assets/Games/Favorites/AssassinsCreed.webp'
+import currentGameCover from './assets/Games/CurrentlyPlaying/ChronoTrigger.webp'
+import currentShowCover from './assets/TV/CurrentlyWatching/frieren.jpg'
+import favoriteShowCover from './assets/TV/Favorites/frieren - Copy.jpg'
 
 const ijazatImages = Object.entries(
   import.meta.glob('./assets/Ijazat/*.{png,jpg,jpeg,JPG,JPEG,webp}', {
@@ -50,7 +57,12 @@ const IMAGE_LIBRARY = {
   aliSuitPortrait: { label: 'Ali Suit Portrait', src: aliSuitPortrait },
   bitcoinBookCover: { label: 'Is Bitcoin Halal (Publication)', src: bitcoinBookCover },
   enderalCover: { label: 'Enderal (Game)', src: enderalCover },
+  currentGameCover: { label: 'Chrono Trigger (Game)', src: currentGameCover },
   salafismCover: { label: 'Salafism: Between Fact and Fiction', src: salafismCover },
+  favoriteBooksCover: { label: 'Favorite Books Shelf', src: favoriteBooksCover },
+  favoriteGameCover: { label: 'Favorite Games', src: favoriteGameCover },
+  currentShowCover: { label: 'Current Show', src: currentShowCover },
+  favoriteShowCover: { label: 'Favorite Show', src: favoriteShowCover },
   awsCert: { label: 'AWS-SAA', src: awsCert },
   blockchainCert: { label: 'Certified Blockchain Expert', src: blockchainCert },
   mastersDegree: { label: 'Masters Degree', src: mastersDegree },
@@ -171,6 +183,20 @@ const HERO_CAROUSEL_SLIDES = [TOP_MOVIE_CARD, ...CONTENT_CARDS].map((card) => ({
   cta: card.cta,
 }))
 
+const CONTENT_LAYOUT_ORDER = [
+  'reading',
+  'favorite-books',
+  'favorite-games',
+  'playing',
+  'watching',
+  'favorite-shows',
+  'instagram',
+  'reddit',
+  'islamic-blog',
+  'philosophy-blog',
+  'humanities-blog',
+]
+
 const DEFAULT_IMAGE_SELECTIONS = {
   heroPortrait: 'aliPortrait',
   heroSlideDefault: 'bitcoinBookCover',
@@ -178,12 +204,12 @@ const DEFAULT_IMAGE_SELECTIONS = {
   restaurantCarousel1: 'bitcoinBookCover',
   restaurantCarousel2: 'salafismCover',
   restaurantCarousel3: 'aliPortrait',
-  cardPlaying: 'enderalCover',
+  cardPlaying: 'currentGameCover',
   cardReading: 'salafismCover',
-  cardFavoriteBooks: 'bitcoinBookCover',
-  cardFavoriteGames: 'enderalCover',
-  cardWatching: 'aliSuitPortrait',
-  cardFavoriteShows: 'aliPortrait',
+  cardFavoriteBooks: 'favoriteBooksCover',
+  cardFavoriteGames: 'favoriteGameCover',
+  cardWatching: 'currentShowCover',
+  cardFavoriteShows: 'favoriteShowCover',
   cardTopMovies: 'aliSuitPortrait',
   cardFavoriteRestaurants: 'salafismCover',
   cardInstagram: 'aliPortrait',
@@ -424,10 +450,10 @@ function App() {
         </p>
         <div className="hero-contact-links" aria-label="Contact and social links">
           <a href="https://wa.me/15714126731" target="_blank" rel="noreferrer">
-            <span aria-hidden="true">💬</span> WhatsApp: +1 571 412 6731
+            <img src={whatsappIcon} alt="" aria-hidden="true" className="contact-icon" /> WhatsApp: +1 571 412 6731
           </a>
           <a href="https://www.linkedin.com/in/ali-juristai/" target="_blank" rel="noreferrer">
-            <span aria-hidden="true">in</span> LinkedIn
+            <img src={linkedinIcon} alt="" aria-hidden="true" className="contact-icon" /> LinkedIn
           </a>
           <a href="mailto:ali@aliamin.info">
             <span aria-hidden="true">✉</span> ali@aliamin.info
@@ -440,7 +466,7 @@ function App() {
             aria-label="Instagram"
             title="Instagram"
           >
-            <span aria-hidden="true">◎</span>
+            Instagram
           </a>
           <a
             href="https://www.youtube.com/watch?v=reIL-x_tf2w"
@@ -450,7 +476,7 @@ function App() {
             aria-label="YouTube"
             title="YouTube"
           >
-            <span aria-hidden="true">▶</span>
+            <img src={youtubeIcon} alt="" aria-hidden="true" className="contact-icon" /> YouTube
           </a>
         </div>
       </header>
@@ -552,8 +578,25 @@ function App() {
       </section>
 
       <section className="card-grid multi" aria-label="Content cards">
-        {CONTENT_CARDS.filter((card) => !['youtube', 'github', 'restaurant'].includes(card.id)).map((card) => (
-          <article key={card.id} className={['favorite-books', 'favorite-games', 'favorite-shows'].includes(card.id) ? 'card long-card' : 'card'}>
+        {CONTENT_CARDS.filter((card) => !['youtube', 'github', 'restaurant'].includes(card.id))
+          .sort((a, b) => {
+            const aIndex = CONTENT_LAYOUT_ORDER.indexOf(a.id)
+            const bIndex = CONTENT_LAYOUT_ORDER.indexOf(b.id)
+            const safeA = aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex
+            const safeB = bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex
+            return safeA - safeB
+          })
+          .map((card) => (
+          <article
+            key={card.id}
+            className={[
+              'card',
+              ['favorite-books', 'favorite-games', 'favorite-shows'].includes(card.id) ? 'long-card' : '',
+              `content-card-${card.id}`,
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
             {renderSectionLabel(card.label, card.id)}
             {card.id !== 'reddit' ? (
               <img src={getImageSrc(imageSelections, contentCardImageMap[card.id])} alt={card.title} className="inline-card-image" />
