@@ -52,6 +52,27 @@ const secularImages = Object.entries(
     image: typeof src === 'string' ? src : src?.default,
   }))
 
+const foodImages = Object.entries(
+  import.meta.glob('./assets/Food/*.{png,jpg,jpeg,JPG,JPEG,webp}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }),
+)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([path, src], index) => {
+    const fileName = path.split('/').pop() ?? `Food Image ${index + 1}`
+    const cleanName = fileName.replace(/\.[^.]+$/, '')
+
+    return {
+      key: `foodImage${index + 1}`,
+      label: `Food: ${cleanName}`,
+      src: typeof src === 'string' ? src : src?.default,
+    }
+  })
+
+const foodImageLibrary = Object.fromEntries(foodImages.map(({ key, label, src }) => [key, { label, src }]))
+
 const IMAGE_LIBRARY = {
   aliPortrait: { label: 'Ali Portrait', src: aliPortrait },
   aliSuitPortrait: { label: 'Ali Suit Portrait', src: aliSuitPortrait },
@@ -66,6 +87,7 @@ const IMAGE_LIBRARY = {
   awsCert: { label: 'AWS-SAA', src: awsCert },
   blockchainCert: { label: 'Certified Blockchain Expert', src: blockchainCert },
   mastersDegree: { label: 'Masters Degree', src: mastersDegree },
+  ...foodImageLibrary,
 }
 
 const IMAGE_OPTIONS = Object.entries(IMAGE_LIBRARY).map(([value, data]) => ({
@@ -201,9 +223,9 @@ const DEFAULT_IMAGE_SELECTIONS = {
   heroPortrait: 'aliPortrait',
   heroSlideDefault: 'bitcoinBookCover',
   topMovieCard: 'aliSuitPortrait',
-  restaurantCarousel1: 'bitcoinBookCover',
-  restaurantCarousel2: 'salafismCover',
-  restaurantCarousel3: 'aliPortrait',
+  restaurantCarousel1: 'foodImage1',
+  restaurantCarousel2: 'foodImage2',
+  restaurantCarousel3: 'foodImage3',
   cardPlaying: 'currentGameCover',
   cardReading: 'salafismCover',
   cardFavoriteBooks: 'favoriteBooksCover',
@@ -211,7 +233,7 @@ const DEFAULT_IMAGE_SELECTIONS = {
   cardWatching: 'currentShowCover',
   cardFavoriteShows: 'favoriteShowCover',
   cardTopMovies: 'aliSuitPortrait',
-  cardFavoriteRestaurants: 'salafismCover',
+  cardFavoriteRestaurants: 'foodImage4',
   cardInstagram: 'aliPortrait',
   cardIslamicBlog: 'aliPortrait',
   cardPhilosophyBlog: 'mastersDegree',
