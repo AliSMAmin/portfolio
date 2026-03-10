@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import './App.css'
+import letterboxdData from './data/letterboxd.json'
+import redditData from './data/reddit.json'
 
 import aliPortrait from './assets/PicturesOfAli/9.3 (edit).jpg'
 import aliSuitPortrait from './assets/PicturesOfAli/8.7 (8.7) Suit (Editted).jpg'
@@ -73,6 +75,27 @@ const foodImages = Object.entries(
 
 const foodImageLibrary = Object.fromEntries(foodImages.map(({ key, label, src }) => [key, { label, src }]))
 
+const movieImages = Object.entries(
+  import.meta.glob('./assets/Movies/*.{png,jpg,jpeg,JPG,JPEG,webp}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }),
+)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([path, src], index) => {
+    const fileName = path.split('/').pop() ?? `Movie Image ${index + 1}`
+    const cleanName = fileName.replace(/\.[^.]+$/, '')
+
+    return {
+      key: `movieImage${index + 1}`,
+      label: `Movie: ${cleanName}`,
+      src: typeof src === 'string' ? src : src?.default,
+    }
+  })
+
+const movieImageLibrary = Object.fromEntries(movieImages.map(({ key, label, src }) => [key, { label, src }]))
+
 const IMAGE_LIBRARY = {
   aliPortrait: { label: 'Ali Portrait', src: aliPortrait },
   aliSuitPortrait: { label: 'Ali Suit Portrait', src: aliSuitPortrait },
@@ -87,6 +110,7 @@ const IMAGE_LIBRARY = {
   awsCert: { label: 'AWS-SAA', src: awsCert },
   blockchainCert: { label: 'Certified Blockchain Expert', src: blockchainCert },
   mastersDegree: { label: 'Masters Degree', src: mastersDegree },
+  ...movieImageLibrary,
   ...foodImageLibrary,
 }
 
@@ -99,10 +123,20 @@ const TOP_MOVIE_CARD = {
   id: 'movie',
   label: 'Most Recent Movie Review',
   title: 'Resurrection (2025)',
-  description:
-    '★★★★★ · Seen at the National Museum of Asian Art, Freer Gallery. A rebellion against the ephemeral nature of life.',
-  link: 'https://letterboxd.com/',
+  description: 'Latest Letterboxd review.',
+  link: 'https://letterboxd.com/aibnsamin/',
   cta: 'Open movie profile',
+  image: null,
+  ...letterboxdData.latestReview,
+}
+
+const TOP_MOVIES_LIST_CARD = {
+  title: 'My Top 100 Movies',
+  description: 'My longlist of all-time favorite films.',
+  link: 'https://letterboxd.com/aibnsamin/lists/',
+  cta: 'Explore movie list',
+  image: null,
+  ...letterboxdData.topList,
 }
 
 const CONTENT_CARDS = [
@@ -169,6 +203,7 @@ const CONTENT_CARDS = [
     description: 'Newest contribution and community discussion entry.',
     link: 'https://www.reddit.com/user/aibnsamin1/',
     cta: 'Open Reddit',
+    ...redditData.latestPost,
   },
   {
     id: 'islamic-blog',
@@ -222,7 +257,7 @@ const CONTENT_LAYOUT_ORDER = [
 const DEFAULT_IMAGE_SELECTIONS = {
   heroPortrait: 'aliPortrait',
   heroSlideDefault: 'bitcoinBookCover',
-  topMovieCard: 'aliSuitPortrait',
+  topMovieCard: 'movieImage1',
   restaurantCarousel1: 'foodImage1',
   restaurantCarousel2: 'foodImage2',
   restaurantCarousel3: 'foodImage3',
@@ -232,7 +267,7 @@ const DEFAULT_IMAGE_SELECTIONS = {
   cardFavoriteGames: 'favoriteGameCover',
   cardWatching: 'currentShowCover',
   cardFavoriteShows: 'favoriteShowCover',
-  cardTopMovies: 'aliSuitPortrait',
+  cardTopMovies: 'movieImage1',
   cardFavoriteRestaurants: 'foodImage4',
   cardInstagram: 'aliPortrait',
   cardIslamicBlog: 'aliPortrait',
@@ -309,7 +344,10 @@ function App() {
     () =>
       HERO_CAROUSEL_SLIDES.map((slide) => ({
         ...slide,
-        image: getImageSrc(imageSelections, heroSlideImageMap[slide.cardId] ?? 'heroSlideDefault'),
+        image:
+          slide.cardId === 'movie'
+            ? TOP_MOVIE_CARD.image ?? getImageSrc(imageSelections, 'topMovieCard')
+            : getImageSrc(imageSelections, heroSlideImageMap[slide.cardId] ?? 'heroSlideDefault'),
       })),
     [imageSelections],
   )
@@ -466,9 +504,10 @@ function App() {
         <img className="hero-portrait" src={getImageSrc(imageSelections, 'heroPortrait')} alt="Ali Shukri Amin" />
         <h1>Ali Shukri Amin&apos;s Portfolio</h1>
         <p className="hero-description">
-          Ṭālib al-&apos;Ilm☝Muwahhid 🇸🇩 • Tech CEO &amp; MS IT/SWE • Qira&apos;āt, Hadīth, Aqīda, Fiqh, Ihsān • Political
-          prisoner during the Syrian civil war • Mensa member • Phil, Psych, Geopolitics, MENA, literature, movies,
-          dining, coffee, tea, fashion, motorcycling
+          Ṭālib al-&apos;Ilm • Muwahhid 🇸🇩 • Tech CEO • Mensa member • MS IT Management
+          • Political prisoner during the Syrian civil war • 5'11" • 180lbs
+          • Weight-lifting • Martial Arts • Specialities: Qira&apos;āt, Hadīth, Aqīda, Fiqh, Ihsān
+          • Interests: Philosophy, Psychology, Geopolitics, MENA, literature, movies, fine dining, coffee, tea, fashion, motorcycling, literature, poetry, art
         </p>
         <div className="hero-contact-links" aria-label="Contact and social links">
           <a href="https://wa.me/15714126731" target="_blank" rel="noreferrer">
@@ -553,7 +592,7 @@ function App() {
 
         <article className="card movie-card">
           {renderSectionLabel(TOP_MOVIE_CARD.label, 'movie')}
-          <img src={getImageSrc(imageSelections, 'topMovieCard')} alt={TOP_MOVIE_CARD.title} className="card-image" />
+          <img src={TOP_MOVIE_CARD.image ?? getImageSrc(imageSelections, 'topMovieCard')} alt={TOP_MOVIE_CARD.title} className="card-image" />
           <h3>{TOP_MOVIE_CARD.title}</h3>
           <p>{TOP_MOVIE_CARD.description}</p>
           <a href={TOP_MOVIE_CARD.link} target="_blank" rel="noreferrer">
@@ -563,11 +602,11 @@ function App() {
 
         <article className="card long-card top-movies-card">
           <p className="section-label">My Top 100 Movies</p>
-          <img src={getImageSrc(imageSelections, 'cardTopMovies')} alt="My top 100 movies" className="card-image" />
-          <h3>My Top 100 Movies</h3>
-          <p>My longlist of all-time favorite films.</p>
-          <a href="https://letterboxd.com/" target="_blank" rel="noreferrer">
-            Explore movie list
+          <img src={TOP_MOVIES_LIST_CARD.image ?? getImageSrc(imageSelections, 'cardTopMovies')} alt={TOP_MOVIES_LIST_CARD.title} className="card-image" />
+          <h3>{TOP_MOVIES_LIST_CARD.title}</h3>
+          <p>{TOP_MOVIES_LIST_CARD.description}</p>
+          <a href={TOP_MOVIES_LIST_CARD.link} target="_blank" rel="noreferrer">
+            {TOP_MOVIES_LIST_CARD.cta}
           </a>
         </article>
 
@@ -635,50 +674,68 @@ function App() {
       <section className="gallery-section">
         <h2>Ijazat Gallery</h2>
         <div className="gallery-carousel">
-          <button
-            type="button"
-            className="carousel-nav"
-            onClick={() => cycleIndex(setActiveIjazatSlide, activeIjazatSlide, -1, ijazatGallery.length)}
-          >
-            ‹
-          </button>
-          <article className="gallery-card carousel-card">
-            <img src={ijazatGallery[activeIjazatSlide].image} alt={ijazatGallery[activeIjazatSlide].title} />
-            <h3>{ijazatGallery[activeIjazatSlide].title}</h3>
-            <p>{ijazatGallery[activeIjazatSlide].description}</p>
-          </article>
-          <button
-            type="button"
-            className="carousel-nav"
-            onClick={() => cycleIndex(setActiveIjazatSlide, activeIjazatSlide, 1, ijazatGallery.length)}
-          >
-            ›
-          </button>
+          <div className="carousel-stage">
+            <button
+              type="button"
+              className="carousel-nav"
+              aria-label="Previous ijazat image"
+              onClick={() => cycleIndex(setActiveIjazatSlide, activeIjazatSlide, -1, ijazatGallery.length)}
+            >
+              &lt;
+            </button>
+            <article className="gallery-card carousel-card">
+              <img src={ijazatGallery[activeIjazatSlide].image} alt={ijazatGallery[activeIjazatSlide].title} />
+              <div className="carousel-card-copy">
+                <p className="section-label">
+                  Credential {activeIjazatSlide + 1} / {ijazatGallery.length}
+                </p>
+                <h3>{ijazatGallery[activeIjazatSlide].title}</h3>
+                <p>{ijazatGallery[activeIjazatSlide].description}</p>
+              </div>
+            </article>
+            <button
+              type="button"
+              className="carousel-nav"
+              aria-label="Next ijazat image"
+              onClick={() => cycleIndex(setActiveIjazatSlide, activeIjazatSlide, 1, ijazatGallery.length)}
+            >
+              &gt;
+            </button>
+          </div>
         </div>
       </section>
 
       <section className="gallery-section">
         <h2>Secular Accomplishments Gallery</h2>
         <div className="gallery-carousel">
-          <button
-            type="button"
-            className="carousel-nav"
-            onClick={() => cycleIndex(setActiveSecularSlide, activeSecularSlide, -1, secularGallery.length)}
-          >
-            ‹
-          </button>
-          <article className="gallery-card carousel-card">
-            <img src={secularGallery[activeSecularSlide].image} alt={secularGallery[activeSecularSlide].title} />
-            <h3>{secularGallery[activeSecularSlide].title}</h3>
-            <p>{secularGallery[activeSecularSlide].description}</p>
-          </article>
-          <button
-            type="button"
-            className="carousel-nav"
-            onClick={() => cycleIndex(setActiveSecularSlide, activeSecularSlide, 1, secularGallery.length)}
-          >
-            ›
-          </button>
+          <div className="carousel-stage">
+            <button
+              type="button"
+              className="carousel-nav"
+              aria-label="Previous secular credential"
+              onClick={() => cycleIndex(setActiveSecularSlide, activeSecularSlide, -1, secularGallery.length)}
+            >
+              &lt;
+            </button>
+            <article className="gallery-card carousel-card">
+              <img src={secularGallery[activeSecularSlide].image} alt={secularGallery[activeSecularSlide].title} />
+              <div className="carousel-card-copy">
+                <p className="section-label">
+                  Credential {activeSecularSlide + 1} / {secularGallery.length}
+                </p>
+                <h3>{secularGallery[activeSecularSlide].title}</h3>
+                <p>{secularGallery[activeSecularSlide].description}</p>
+              </div>
+            </article>
+            <button
+              type="button"
+              className="carousel-nav"
+              aria-label="Next secular credential"
+              onClick={() => cycleIndex(setActiveSecularSlide, activeSecularSlide, 1, secularGallery.length)}
+            >
+              &gt;
+            </button>
+          </div>
         </div>
       </section>
     </main>
@@ -686,3 +743,6 @@ function App() {
 }
 
 export default App
+
+
+
