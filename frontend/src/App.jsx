@@ -26,6 +26,56 @@ import currentGameCover from './assets/Games/CurrentlyPlaying/ChronoTrigger.webp
 import currentShowCover from './assets/TV/CurrentlyWatching/frieren.jpg'
 import favoriteShowCover from './assets/TV/Favorites/frieren - Copy.jpg'
 
+const IJAZAT_FILE_DATES = {
+  "./assets/Ijazat/arbaunijaza.png": "2026-02-19T14:24:13",
+  "./assets/Ijazat/Screenshot 2026-01-31 172120.png": "2026-01-31T17:21:20",
+  "./assets/Ijazat/بلوغ المرام_121.jpg": "2025-11-10T11:29:55",
+  "./assets/Ijazat/شمائل_55.jpg": "2025-10-18T12:05:13",
+  "./assets/Ijazat/Al-Wasiyya1.png": "2023-06-14T14:33:27",
+  "./assets/Ijazat/Wadha'if Shahr Rabi' al-Awal 2.png": "2022-12-23T07:41:44",
+  "./assets/Ijazat/Wadha'if Shahr Rabi' al-Awwal 1.png": "2022-12-23T07:41:33",
+  "./assets/Ijazat/Qasida Burda 3.png": "2022-12-23T07:41:05",
+  "./assets/Ijazat/Qasida Burda 2.png": "2022-12-23T07:40:05",
+  "./assets/Ijazat/Qasida Burda 1.png": "2022-12-23T07:39:32",
+  "./assets/Ijazat/Mawlid b. Mibrad.png": "2022-12-23T07:38:55",
+  "./assets/Ijazat/Mawlid b. Jawzi.png": "2022-12-23T07:38:10",
+  "./assets/Ijazat/Ijazah in Usul al-Sunnah.png": "2022-12-23T07:33:50",
+  "./assets/Ijazat/Screenshot from 2022-10-03 19-52-51.png": "2022-10-03T19:52:52",
+  "./assets/Ijazat/Screenshot from 2022-10-03 19-52-32.png": "2022-10-03T19:52:33",
+  "./assets/Ijazat/Shahadah.png": "2022-10-03T19:52:12",
+  "./assets/Ijazat/Screenshot from 2022-10-03 19-51-41.png": "2022-10-03T19:51:42",
+  "./assets/Ijazat/Screenshot from 2022-10-03 19-51-36.png": "2022-10-03T19:51:36",
+  "./assets/Ijazat/Screenshot from 2022-10-03 19-50-02.png": "2022-10-03T19:50:03",
+  "./assets/Ijazat/Diplomatajwid.png": "2022-10-03T19:47:37",
+  "./assets/Ijazat/Screenshot from 2022-10-03 19-47-02.png": "2022-10-03T19:47:03",
+  "./assets/Ijazat/Screenshot from 2022-10-03 19-46-54.png": "2022-10-03T19:46:55",
+  "./assets/Ijazat/Screenshot from 2022-10-03 19-46-25.png": "2022-10-03T19:46:26",
+  "./assets/Ijazat/Diploma.png": "2022-10-03T19:43:43",
+  "./assets/Ijazat/Ijazah Khalil Fasting (2).png": "2022-09-21T18:19:02",
+  "./assets/Ijazat/HistoryofQuran.png": "2022-09-10T07:37:07",
+  "./assets/Ijazat/Ali bin Shukri Amin IPT6.png": "2022-08-19T18:01:30",
+  "./assets/Ijazat/virtues of dhu2.png": "2022-08-01T02:37:33",
+  "./assets/Ijazat/Virtues of Dhu.png": "2022-08-01T02:37:23",
+  "./assets/Ijazat/Qira'āt 101 - Ali Amin.png": "2022-07-29T11:14:11",
+  "./assets/Ijazat/tashil.png": "2022-06-04T21:50:53",
+  "./assets/Ijazat/Waghlisiyyah.png": "2022-06-04T21:50:53",
+  "./assets/Ijazat/Qurraijaza.png": "2022-06-04T21:50:52",
+  "./assets/Ijazat/nasiha.png": "2022-06-04T21:50:51",
+  "./assets/Ijazat/Urjuza Ijaza.png": "2022-06-04T21:50:50",
+  "./assets/Ijazat/Moralsijaza.png": "2022-06-04T21:50:50",
+  "./assets/Ijazat/ha'iyya.png": "2022-06-04T21:50:48",
+  "./assets/Ijazat/Ijazamusalsalyawmashura.jpeg": "2022-06-04T21:50:47",
+  "./assets/Ijazat/Mawlid al-Rasul al-A'dham.png": "2022-03-16T21:50:47",
+  "./assets/Ijazat/Al-Wasiyya.png": "2022-03-16T21:50:46",
+  "./assets/Ijazat/dhikr2.png": "2022-03-16T21:50:46",
+  "./assets/Ijazat/dhikr1.png": "2022-03-16T21:50:45",
+  "./assets/Ijazat/naqd.png": "2022-03-16T21:50:45",
+  "./assets/Ijazat/illustratedtajwid2.png": "2021-07-09T08:43:54",
+  "./assets/Ijazat/asanidbirr.png": "2021-01-13T18:04:52",
+  "./assets/Ijazat/khasa fi bad kutub al nasiha.png": "2021-01-13T18:00:14",
+  "./assets/Ijazat/Illustrated Tajwid I.png": "2020-10-11T05:52:56",
+}
+
 const ijazatImages = Object.entries(
   import.meta.glob('./assets/Ijazat/*.{png,jpg,jpeg,JPG,JPEG,webp}', {
     eager: true,
@@ -33,12 +83,56 @@ const ijazatImages = Object.entries(
     import: 'default',
   }),
 )
-  .sort(([a], [b]) => a.localeCompare(b))
+  .sort(([a], [b]) => {
+    const dateA = IJAZAT_FILE_DATES[a]
+    const dateB = IJAZAT_FILE_DATES[b]
+
+    if (dateA && dateB) {
+      return dateB.localeCompare(dateA)
+    }
+
+    if (dateA) {
+      return -1
+    }
+
+    if (dateB) {
+      return 1
+    }
+
+    return a.localeCompare(b)
+  })
   .map(([path, src], index) => ({
     title: `Ijazat Credential ${index + 1}`,
     description: path.split('/').pop()?.replace(/\.[^.]+$/, '').replace(/[_-]/g, ' ') ?? 'Ijazat credential',
     image: typeof src === 'string' ? src : src?.default,
   }))
+
+const SECULAR_FILE_DATES = {
+  "./assets/secularDiplomas/Screenshot 2026-02-19 143721.png": "2026-02-19T14:37:21",
+  "./assets/secularDiplomas/Screenshot 2026-02-19 143709.png": "2026-02-19T14:37:09",
+  "./assets/secularDiplomas/Screenshot 2026-02-19 143559.png": "2026-02-19T14:35:59",
+  "./assets/secularDiplomas/Screenshot 2026-02-19 143551.png": "2026-02-19T14:35:52",
+  "./assets/secularDiplomas/Screenshot 2026-02-19 143533.png": "2026-02-19T14:35:33",
+  "./assets/secularDiplomas/Screenshot 2026-02-19 143520.png": "2026-02-19T14:35:20",
+  "./assets/secularDiplomas/network+.png": "2026-02-19T14:34:13",
+  "./assets/secularDiplomas/mastersdegree.png": "2026-02-19T14:28:30",
+  "./assets/secularDiplomas/bachelor's.png": "2024-09-03T20:57:50",
+  "./assets/secularDiplomas/Google's Go (golang) Programming.jpg": "2022-08-18T17:50:15",
+  "./assets/secularDiplomas/certifiedethereumexpert.png": "2022-04-11T10:40:55",
+  "./assets/secularDiplomas/Associatesdegree.jpg": "2022-03-14T08:57:00",
+  "./assets/secularDiplomas/AWS-SAA.png": "2021-11-13T07:13:12",
+  "./assets/secularDiplomas/Systems Support Specialist.png": "2021-09-22T07:56:49",
+  "./assets/secularDiplomas/Linux+.png": "2021-09-22T07:56:28",
+  "./assets/secularDiplomas/AWS-CCP.png": "2021-09-04T06:56:05",
+  "./assets/secularDiplomas/SecureCloudProfessional.png": "2021-06-16T06:40:49",
+  "./assets/secularDiplomas/Cloud+.png": "2021-06-16T06:38:29",
+  "./assets/secularDiplomas/sec+.png": "2021-04-02T07:56:35",
+  "./assets/secularDiplomas/Aplus.png": "2021-02-06T07:55:38",
+  "./assets/secularDiplomas/cloudes+.png": "2021-01-09T07:47:21",
+  "./assets/secularDiplomas/itf+.png": "2020-11-20T10:05:08",
+  "./assets/secularDiplomas/Certified Blockchain Expert.png": "2020-10-05T14:10:38",
+  "./assets/secularDiplomas/coursera.png": "2020-09-15T08:44:18",
+}
 
 const secularImages = Object.entries(
   import.meta.glob('./assets/secularDiplomas/*.{png,jpg,jpeg,JPG,JPEG,webp}', {
@@ -47,7 +141,24 @@ const secularImages = Object.entries(
     import: 'default',
   }),
 )
-  .sort(([a], [b]) => a.localeCompare(b))
+  .sort(([a], [b]) => {
+    const dateA = SECULAR_FILE_DATES[a]
+    const dateB = SECULAR_FILE_DATES[b]
+
+    if (dateA && dateB) {
+      return dateB.localeCompare(dateA)
+    }
+
+    if (dateA) {
+      return -1
+    }
+
+    if (dateB) {
+      return 1
+    }
+
+    return a.localeCompare(b)
+  })
   .map(([path, src], index) => ({
     title: `Credential ${index + 1}`,
     description: path.split('/').pop()?.replace(/\.[^.]+$/, '').replace(/[_-]/g, ' ') ?? 'Professional credential',
@@ -55,6 +166,7 @@ const secularImages = Object.entries(
   }))
 
 const foodImages = Object.entries(
+
   import.meta.glob('./assets/Food/*.{png,jpg,jpeg,JPG,JPEG,webp}', {
     eager: true,
     query: '?url',
