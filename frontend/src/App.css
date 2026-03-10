@@ -268,8 +268,12 @@ body {
 }
 
 .social-icon-github {
-  width: 0.72rem;
-  height: 0.72rem;
+  width: 42px !important;
+  height: 42px !important;
+  max-width: 42px;
+  max-height: 42px;
+  object-fit: contain;
+  flex: 0 0 42px;
 }
 
 .dot-row {
