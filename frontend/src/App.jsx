@@ -483,7 +483,7 @@ function App() {
 
     return (
       <p className="section-label section-label-with-icon">
-        {icon ? <img src={icon.src} alt={icon.alt} className="social-icon" /> : null}
+        {icon ? <img src={icon.src} alt={icon.alt} className={['social-icon', cardId === 'github' ? 'social-icon-github' : ''].filter(Boolean).join(' ')} /> : null}
         <span>{label}</span>
       </p>
     )

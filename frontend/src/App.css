@@ -267,6 +267,11 @@ body {
   flex-shrink: 0;
 }
 
+.social-icon-github {
+  width: 0.72rem;
+  height: 0.72rem;
+}
+
 .dot-row {
   display: flex;
   gap: 0.45rem;
@@ -392,7 +397,7 @@ body {
 }
 
 .github-card > a img {
-  max-height: 84px;
+  max-height: 56px;
   width: auto;
   margin: 0 auto;
 }
