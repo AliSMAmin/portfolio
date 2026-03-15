@@ -15,6 +15,22 @@ body {
   padding: 1.5rem 1rem 3rem;
 }
 
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 20;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+}
+
 
 .admin-panel {
   background: #fff;
@@ -123,20 +139,63 @@ body {
   margin-bottom: 2rem;
 }
 
+.hero-portrait-shell {
+  position: relative;
+  width: min(430px, 88vw);
+  aspect-ratio: 1 / 1;
+  margin-bottom: -3.25rem;
+  z-index: 0;
+}
+
+.hero-portrait-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(248, 250, 252, 0) 54%,
+    rgba(248, 250, 252, 0.58) 72%,
+    rgba(248, 250, 252, 0.88) 86%,
+    #f8fafc 100%
+  );
+  pointer-events: none;
+}
+
 .hero-portrait {
-  width: min(320px, 80vw);
+  width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 50%;
   border: 4px solid #e2e8f0;
   box-shadow: 0 16px 32px rgba(15, 23, 42, 0.15);
-  animation: fadeIn 1.3s ease-out;
+  animation: heroPortraitCycle 7s ease-in-out;
+}
+
+@keyframes heroPortraitCycle {
+  0% {
+    opacity: 0.35;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.35;
+  }
 }
 
 .hero h1 {
   margin: 0;
   font-size: clamp(1.8rem, 4vw, 3rem);
   font-family: 'Playfair Display', 'Crimson Pro', Georgia, serif;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-description {
@@ -145,18 +204,26 @@ body {
   font-size: clamp(0.95rem, 1.9vw, 1.1rem);
   line-height: 1.6;
   color: #334155;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-contact-links {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   gap: 0.5rem 0.75rem;
-  max-width: 70ch;
+  max-width: min(100%, 1100px);
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
+  scrollbar-width: thin;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-contact-links a {
   display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
   gap: 0.3rem;
   color: #1d4ed8;
@@ -331,6 +398,24 @@ body {
   grid-column: span 2;
 }
 
+.github-card-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.45rem;
+  margin-bottom: 0.75rem;
+}
+
+.github-card-button {
+  border: 1px solid #cbd5e1;
+  background: rgba(248, 250, 252, 0.96);
+  color: #0f172a;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
 .movie-card,
 .restaurant-card {
   grid-column: span 1;
@@ -367,13 +452,43 @@ body {
   grid-row: 3;
 }
 
+.multi .content-card-favorite-coffee,
+.multi .content-card-favorite-tea,
+.multi .content-card-current-motorcycle,
+.multi .content-card-current-podcast {
+  grid-row: 4;
+}
+
+.multi .content-card-favorite-coffee {
+  grid-column: 1 / 5;
+}
+
+.multi .content-card-favorite-tea {
+  grid-column: 5 / 9;
+}
+
+.multi .content-card-current-motorcycle {
+  grid-column: 9 / 13;
+}
+
+.multi .content-card-current-podcast {
+  grid-column: 13 / 16;
+}
+
 .multi .content-card-instagram,
 .multi .content-card-reddit,
 .multi .content-card-islamic-blog,
 .multi .content-card-philosophy-blog,
 .multi .content-card-humanities-blog {
   grid-column: span 3;
-  grid-row: 4;
+  grid-row: 5;
+}
+
+.current-favorite-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 190px;
 }
 
 .youtube-card iframe {
@@ -427,6 +542,356 @@ body {
 
 .gallery-section h2 {
   margin: 0 0 0.85rem;
+}
+
+.section-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.section-header-row h2 {
+  margin: 0;
+}
+
+.section-header-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #0f172a;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.content-card-button {
+  margin-bottom: 0.65rem;
+}
+
+.restaurants-dropdown {
+  margin: 0.75rem 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.75rem;
+  background: #f8fafc;
+  padding: 0.75rem 0.9rem;
+}
+
+.restaurants-dropdown summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.restaurants-list {
+  margin: 0.85rem 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.45rem;
+  color: #334155;
+}
+
+.professional-page {
+  max-width: 1280px;
+}
+
+.blog-page {
+  max-width: 1200px;
+}
+
+.professional-hero,
+.blog-hero,
+.professional-section,
+.blog-section,
+.professional-panel,
+.blog-card,
+.blog-link-panel,
+.professional-post-card,
+.professional-project-card,
+.professional-stat-card,
+.professional-testimonial {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+}
+
+.professional-hero {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background:
+    radial-gradient(circle at top right, rgba(148, 163, 184, 0.2), transparent 35%),
+    linear-gradient(135deg, #fff, #f8fafc);
+}
+
+.blog-hero {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background:
+    radial-gradient(circle at top left, rgba(186, 230, 253, 0.35), transparent 35%),
+    linear-gradient(135deg, #fff, #f8fafc);
+}
+
+.professional-kicker {
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.professional-hero h1,
+.professional-section h2 {
+  margin: 0 0 0.8rem;
+  font-family: 'Playfair Display', 'Crimson Pro', Georgia, serif;
+}
+
+.professional-highlight-list,
+.professional-mini-topics,
+.professional-pillars,
+.professional-hero-actions,
+.professional-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.professional-highlight-list span,
+.professional-mini-topics span,
+.professional-pillars span {
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  background: #f8fafc;
+  font-size: 0.92rem;
+}
+
+.professional-hero-actions a,
+.professional-link-list a,
+.professional-project-card a,
+.professional-contact a,
+.professional-panel a {
+  color: #1d4ed8;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.professional-hero-image {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.professional-layout {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.blog-layout {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.professional-section {
+  padding: 1.25rem;
+}
+
+.blog-section {
+  padding: 1.25rem;
+}
+
+.professional-two-column {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+.professional-panel,
+.professional-post-card,
+.professional-project-card,
+.professional-stat-card,
+.professional-testimonial {
+  padding: 1.1rem;
+}
+
+.professional-post-grid,
+.blog-grid,
+.professional-project-grid,
+.professional-testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.blog-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.islam-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.professional-post-card h3,
+.blog-card h3,
+.professional-project-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+}
+
+.blog-card,
+.blog-link-panel {
+  padding: 1.1rem;
+}
+
+.blog-lead,
+.blog-card p {
+  color: #334155;
+}
+
+.blog-date {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.blog-links-section {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+.islam-hero-actions {
+  margin-top: 1rem;
+}
+
+.islam-course-grid,
+.islam-study-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.islam-subsection + .islam-subsection {
+  margin-top: 1rem;
+}
+
+.islam-subsection p + ul,
+.islam-subsection p + p {
+  margin-top: 0.4rem;
+}
+
+.professional-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  color: #64748b;
+  font-size: 0.88rem;
+}
+
+.professional-github-section {
+  display: grid;
+  gap: 1rem;
+}
+
+.professional-github-chart img {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  border-radius: 0.75rem;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+}
+
+.professional-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.professional-stat-card {
+  text-align: center;
+}
+
+.professional-stat-card strong {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 0.35rem;
+}
+
+.professional-link-list,
+.professional-project-card ul,
+.professional-qualifications-grid,
+.professional-skills-grid {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.professional-qualifications-grid,
+.professional-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem 1rem;
+}
+
+.professional-project-index {
+  margin: 0 0 0.45rem;
+  font-size: 0.82rem;
+  color: #64748b;
+  letter-spacing: 0.1em;
+}
+
+.professional-story-section p,
+.professional-panel p,
+.professional-post-card p,
+.professional-testimonial p {
+  color: #334155;
+}
+
+.professional-testimonial {
+  margin: 0;
+}
+
+.professional-testimonial footer {
+  margin-top: 0.75rem;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.professional-contact {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 900px) {
+  .professional-hero,
+  .blog-hero,
+  .professional-two-column,
+  .blog-grid,
+  .islam-grid,
+  .blog-links-section,
+  .professional-post-grid,
+  .professional-project-grid,
+  .professional-testimonial-grid,
+  .professional-qualifications-grid,
+  .professional-skills-grid,
+  .professional-stats {
+    grid-template-columns: 1fr;
+  }
 }
 
 .gallery-carousel {
@@ -514,4 +979,3 @@ body {
     grid-column: auto;
   }
 }
-
